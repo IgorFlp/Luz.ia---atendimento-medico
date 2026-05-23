@@ -72,7 +72,7 @@ export class AppointmentService {
         appointments.push(newAppointment);
         return newAppointment;
     }
-    cancelAppointment(professionalId: number, patientName: string, date: Date) {
+    cancelAppointment(professionalId: number, date: Date, patientName: string) {
         const hasBooked = this.getAppointmentsForProfessional(professionalId, date, patientName);
         if (!hasBooked) {
             throw new Error('Agendamento não encontrado para cancelamento');
