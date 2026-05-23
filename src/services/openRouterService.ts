@@ -1,7 +1,7 @@
 import {ChatOpenAI} from "@langchain/openai";
 import {config, type ModelConfig} from "../config.ts";
-import { z } from "zod";
-import { createAgent, providerStrategy } from "langchain";
+import { success, z } from "zod";
+import { createAgent, HumanMessage, providerStrategy, SystemMessage } from "langchain";
 
 export class OpenRouterService{
     private config: ModelConfig;
@@ -31,10 +31,28 @@ export class OpenRouterService{
         userPrompt: string,
         schema: z.ZodSchema<T>
      ){
+        try{
         const agent = createAgent({
             model: this.llmClient,
             tools: [],
             responseFormat: providerStrategy(schema)
         })
-     }
-}
+        const messages = [
+            new SystemMessage(systemPrompt),
+            new HumanMessage(userPrompt)
+        ]   
+        const data = await agent.invoke({messages});
+        return {
+            success: true,
+            data: data.structuredResponse,        
+        }
+
+        }catch(error){
+            console.error('❌ Error in OpenRouterService.generateStructured:', error);
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : String(error),
+            }
+        }       
+    } 
+}   
