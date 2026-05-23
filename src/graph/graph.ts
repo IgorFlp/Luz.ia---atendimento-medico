@@ -46,8 +46,8 @@ export function buildAppointmentGraph(llmClient: OpenRouterService, appointmentS
     stateSchema: AppointmentStateAnnotation,
   })
     .addNode('identifyIntent', createIdentifyIntentNode(llmClient))
-    .addNode('schedule', createSchedulerNode())
-    .addNode('cancel', createCancellerNode())
+    .addNode('schedule', createSchedulerNode(appointmentService))
+    .addNode('cancel', createCancellerNode(appointmentService))
     .addNode('message', createMessageGeneratorNode())
 
     // Flow
