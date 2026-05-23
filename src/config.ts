@@ -23,7 +23,11 @@ export const config: ModelConfig = {
   models: [
     // 'qwen/qwen3-coder-next',
     // https://openrouter.ai/models?fmt=cards&max_price=0&order=throughput-high-to-low&supported_parameters=structured_outputs%2Cresponse_format
-    'upstage/solar-pro-3:free',
+    //'openrouter/free',
+    'google/gemma-4-26b-a4b-it:free',
+    'google/gemma-4-31b-it:free',
+    'nvidia/nemotron-3-super-120b-a12b:free',
+    'minimax/minimax-m2.5:free'
   ],
   provider: {
     sort: {
